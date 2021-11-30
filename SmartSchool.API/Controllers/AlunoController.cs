@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.API.Data;
 using SmartSchool.API.Models;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace SmartSchool.API.Controllers
@@ -11,7 +11,6 @@ namespace SmartSchool.API.Controllers
     [ApiController]
     public class AlunoController : ControllerBase
     {
-        
         public readonly SmartContext _context;
         public AlunoController(SmartContext context) 
         {
@@ -24,7 +23,7 @@ namespace SmartSchool.API.Controllers
             return Ok(_context.Alunos);
         }
 
-        //api/aluno/id
+        // Api/aluno/id
         [HttpGet("ById/{id}")]
         public IActionResult GetById(int id)
         {
@@ -35,7 +34,7 @@ namespace SmartSchool.API.Controllers
             return Ok(aluno);
         }
 
-        //api/aluno/nome
+        // Api/aluno/nome
         [HttpGet("ByName")]
         public IActionResult GetByName(string nome, string sobrenome)
         {

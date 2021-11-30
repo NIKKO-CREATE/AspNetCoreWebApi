@@ -1,7 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+<<<<<<< Updated upstream
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.API.Data;
 using SmartSchool.API.Models;
+=======
+using SmartSchool.API.Data;
+using SmartSchool.API.Models;
+using System.Data.Entity;
+>>>>>>> Stashed changes
 using System.Linq;
 
 namespace SmartSchool.API.Controllers
