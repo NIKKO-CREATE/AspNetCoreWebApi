@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartSchool.API.Data;
+using System;
 
 namespace SmartSchool.API
 {
@@ -24,9 +26,13 @@ namespace SmartSchool.API
 
             services.AddScoped<IRepository, Repository>();// Inversão de controle
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Mapeamento
+
             services.AddControllers()
                 .AddNewtonsoftJson(
                 opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);//Para o looping das classes internas, força ele a fazer a primeira camada 
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

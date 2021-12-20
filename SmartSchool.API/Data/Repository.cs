@@ -24,7 +24,7 @@ namespace SmartSchool.API.Data
             _ = _context.Update(entity);
         }
 
-        public void delete<T>(T entity) where T : class
+        public void Delete<T>(T entity) where T : class
         {
             _ = _context.Remove(entity);
         }
@@ -42,7 +42,7 @@ namespace SmartSchool.API.Data
 
             if (includeProfessor) // Se for True, ele irá fazer todos esses "joins"
             {
-                query = query.Include(a => a.AlunosDisiplinas)
+                query = query.Include(a => a.AlunosDisciplinas)
                              .ThenInclude(ad => ad.Disciplina)
                              .ThenInclude(d => d.Professor);
             }
@@ -59,14 +59,14 @@ namespace SmartSchool.API.Data
 
             if (includeProfessor)
             {
-                query = query.Include(a => a.AlunosDisiplinas)
+                query = query.Include(a => a.AlunosDisciplinas)
                              .ThenInclude(ad => ad.Disciplina)
                              .ThenInclude(d => d.Professor);
             }
 
             query = query.AsNoTracking()
                          .OrderBy(a => a.Id)
-                         .Where(aluno => aluno.AlunosDisiplinas.Any(ad => ad.DisciplinaId == disciplinaId));
+                         .Where(aluno => aluno.AlunosDisciplinas.Any(ad => ad.DisciplinaId == disciplinaId));
 
             return query.ToArray();
         }
@@ -77,7 +77,7 @@ namespace SmartSchool.API.Data
 
             if (includeProfessor) 
             {
-                query = query.Include(a => a.AlunosDisiplinas)
+                query = query.Include(a => a.AlunosDisciplinas)
                              .ThenInclude(ad => ad.Disciplina)
                              .ThenInclude(d => d.Professor);
             }

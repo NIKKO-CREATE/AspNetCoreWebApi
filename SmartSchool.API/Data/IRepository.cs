@@ -6,7 +6,7 @@ namespace SmartSchool.API.Data
     {
         void Add<T>(T entity) where T : class;
         void Update<T>(T entity) where T : class;
-        void delete<T>(T entity) where T : class;
+        void Delete<T>(T entity) where T : class;
         bool SaveChanges();
 
         //Alunos 
