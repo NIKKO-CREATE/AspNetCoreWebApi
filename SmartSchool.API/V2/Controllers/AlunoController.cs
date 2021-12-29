@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SmartSchool.API.Data;
-using SmartSchool.API.Dtos;
+using SmartSchool.API.V2.Dtos;
 using SmartSchool.API.Models;
 using System.Collections.Generic;
 
-namespace SmartSchool.API.Controllers
+namespace SmartSchool.API.V2.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// 
+    /// </summary> 
     [ApiController]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AlunoController : ControllerBase
     {
         public readonly IRepository _repo;
@@ -20,6 +24,10 @@ namespace SmartSchool.API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// This method return all students.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -28,12 +36,11 @@ namespace SmartSchool.API.Controllers
             return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
-        [HttpGet("GetRegsitrar")]
-        public IActionResult GetRegsitrar()
-        {
-            return Ok (new AlunoRegistrarDto());
-        }
-
+        /// <summary>
+        /// This method return only one studentes by "ID".
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("ById/{id}")]
         public IActionResult GetById(int id)
         {
@@ -47,6 +54,11 @@ namespace SmartSchool.API.Controllers
             return Ok(alunoDto);
         }
 
+        /// <summary>
+        /// This method add students.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost()]
         public IActionResult Post(AlunoRegistrarDto model)
         {
@@ -60,6 +72,12 @@ namespace SmartSchool.API.Controllers
             return BadRequest("Aluno não encontrado");
         }
 
+        /// <summary>
+        /// This method updates the student record.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public IActionResult Put(int id, AlunoRegistrarDto model)
         {
@@ -78,24 +96,11 @@ namespace SmartSchool.API.Controllers
             return BadRequest("Aluno não atualizado");
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Patch(int id, AlunoRegistrarDto model)
-        {
-            var aluno = _repo.GetAlunosById(id);
-
-            if (aluno == null)
-                return BadRequest("Aluno não encontrado");
-
-            _mapper.Map(model, aluno);
-
-            _repo.Update(aluno);
-
-            if (_repo.SaveChanges())
-                return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
-
-            return BadRequest("Aluno não atualizado");
-        }
-
+        /// <summary>
+        /// This method delete one studentes by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

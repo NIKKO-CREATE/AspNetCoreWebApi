@@ -8,8 +8,8 @@ namespace SmartSchool.API.Models
 
         public AlunoDisciplina(int alunoId, int disciplinaId)
         {
-            this.AlunoId = alunoId;
-            this.DisciplinaId = disciplinaId;
+            AlunoId = alunoId;
+            DisciplinaId = disciplinaId;
         }
         public DateTime DataInicio { get; set; } = DateTime.Now;
         public DateTime? DataFim { get; set; }

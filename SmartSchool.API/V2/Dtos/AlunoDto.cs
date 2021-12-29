@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmartSchool.API.Dtos
+namespace SmartSchool.API.V2.Dtos
 {
     // DTO (Data transfer object)
     // Serve para transferir os dados do BD

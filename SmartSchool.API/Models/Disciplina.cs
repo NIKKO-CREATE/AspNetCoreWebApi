@@ -8,10 +8,10 @@ namespace SmartSchool.API.Models
 
         public Disciplina(int id, string nome, int professorId, int cursoId)
         {
-            this.Id = id;
-            this.Nome = nome;
-            this.ProfessorId = professorId;
-            this.CursoId = cursoId;
+           Id = id;
+           Nome = nome;
+           ProfessorId = professorId;
+           CursoId = cursoId;
         }
 
         public int Id { get; set; }

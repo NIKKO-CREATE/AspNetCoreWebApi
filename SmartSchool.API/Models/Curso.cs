@@ -8,8 +8,8 @@ namespace SmartSchool.API.Models
 
         public Curso(int id, string nome)
         {
-            this.Id = id;
-            this.Nome = nome;
+            Id = id;
+            Nome = nome;
         }
 
         public int Id { get; set; }
