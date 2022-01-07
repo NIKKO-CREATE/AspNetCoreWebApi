@@ -1,4 +1,6 @@
-﻿using SmartSchool.API.Models;
+﻿using SmartSchool.API.Helper;
+using SmartSchool.API.Models;
+using System.Threading.Tasks;
 
 namespace SmartSchool.API.Data
 {
@@ -10,8 +12,11 @@ namespace SmartSchool.API.Data
         bool SaveChanges();
 
         //Alunos 
+        Task<PageLIst<Aluno>> GetAllAlunosAsync(PageParams pageParams, bool includeProfessor = false);
         Aluno[] GetAllAlunos(bool includeProfessor = false);
+        Task <Aluno[]> GetAllAlunosByDisciplinaIdAsync(int disciplinaId, bool includeProfessor = false);
         Aluno[] GetAllAlunosByDisciplinaId(int disciplinaId, bool includeProfessor = false);
+        Task <Aluno> GetAlunosByIdAsync(int alunoId, bool includeProfessor = false);
         Aluno GetAlunosById(int alunoId, bool includeProfessor = false);
 
         //Professores

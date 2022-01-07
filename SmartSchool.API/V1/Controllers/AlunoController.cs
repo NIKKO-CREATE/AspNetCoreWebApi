@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SmartSchool.API.Data;
-using SmartSchool.API.V1.Dtos;
+using SmartSchool.API.Helper;
 using SmartSchool.API.Models;
+using SmartSchool.API.V1.Dtos;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SmartSchool.API.V1.Controllers
 {
@@ -29,11 +31,14 @@ namespace SmartSchool.API.V1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get([FromQuery] PageParams pageParams)
         {
-            var alunos = _repo.GetAllAlunos(true);
+            var alunos = await _repo.GetAllAlunosAsync(pageParams, true);
+            var alunosResult = _mapper.Map<IEnumerable<AlunoDto>>(alunos);
 
-            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+            Response.AddPagination(alunos.CurrentPage, alunos.PageSize, alunos.TotalCount, alunos.TotalPages);
+
+            return Ok(alunosResult);
         }
 
         /// <summary>
@@ -52,9 +57,9 @@ namespace SmartSchool.API.V1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("ById/{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var aluno = _repo.GetAlunosById(id, false);
+            var aluno = await _repo.GetAlunosByIdAsync(id, false);
 
             if (aluno == null)
                 return BadRequest("Aluno não encontrado");
@@ -89,9 +94,9 @@ namespace SmartSchool.API.V1.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, AlunoRegistrarDto model)
+        public async Task<IActionResult> Put(int id, AlunoRegistrarDto model)
         {
-            var aluno = _repo.GetAlunosById(id);
+            var aluno = await _repo.GetAlunosByIdAsync(id);
 
             if (aluno == null)
                 return BadRequest("Aluno não encontrado");
@@ -113,9 +118,9 @@ namespace SmartSchool.API.V1.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, AlunoRegistrarDto model)
+        public async Task<IActionResult> Patch(int id, AlunoRegistrarDto model)
         {
-            var aluno = _repo.GetAlunosById(id);
+            var aluno = await _repo.GetAlunosByIdAsync(id);
 
             if (aluno == null)
                 return BadRequest("Aluno não encontrado");
@@ -136,9 +141,9 @@ namespace SmartSchool.API.V1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var aluno = _repo.GetAlunosById(id);
+            var aluno = await _repo.GetAlunosByIdAsync(id);
 
             if (aluno == null)
                 return BadRequest("Aluno não encontrado");

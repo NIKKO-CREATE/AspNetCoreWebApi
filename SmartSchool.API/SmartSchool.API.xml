@@ -9,7 +9,7 @@
             
             </summary> 
         </member>
-        <member name="M:SmartSchool.API.V1.Controllers.AlunoController.Get">
+        <member name="M:SmartSchool.API.V1.Controllers.AlunoController.Get(SmartSchool.API.Helper.PageParams)">
             <summary>
             This method return all students.
             </summary>
